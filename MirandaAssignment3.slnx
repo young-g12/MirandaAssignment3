@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="MirandaAssignment3/MirandaAssignment3.vcxproj" />
+  <Project Path="MirandaAssignment3/MirandaAssignment3.vcxproj" Id="6bd271f4-38a5-4627-ac14-f0d66982c04a" />
 </Solution>
