@@ -1,9 +1,12 @@
+// Gilberto Miranda
+
 #include "snowball.h"
 #include "constants.h"
 
 #include <allegro5/allegro_image.h>
 #include <cmath>
 
+// Constructor
 snowball::snowball()
 {
     x = 0;
@@ -17,12 +20,14 @@ snowball::snowball()
     image = nullptr;
 }
 
+// Destructor
 snowball::~snowball()
 {
     if (image)
         al_destroy_bitmap(image);
 }
 
+// Load the snowball image
 bool snowball::LoadImage(const char* filename)
 {
     image = al_load_bitmap(filename);
@@ -33,6 +38,7 @@ bool snowball::LoadImage(const char* filename)
     return true;
 }
 
+// Fire a snowball from the cannon
 void snowball::Fire(float startX, float startY, float angle)
 {
     x = startX;
@@ -46,6 +52,7 @@ void snowball::Fire(float startX, float startY, float angle)
     active = true;
 }
 
+// Update snowball position
 void snowball::Update()
 {
     if (!active)
@@ -54,6 +61,7 @@ void snowball::Update()
     x += dx;
     y += dy;
 
+    // Remove snowball when it leaves the screen
     if (x < -50 || x > SCREEN_W + 50 ||
         y < -50 || y > SCREEN_H + 50)
     {
@@ -61,6 +69,7 @@ void snowball::Update()
     }
 }
 
+// Draw the snowball
 void snowball::Draw()
 {
     if (!active || !image)
@@ -79,31 +88,37 @@ void snowball::Draw()
         0);
 }
 
+// Check if snowball is active
 bool snowball::IsActive() const
 {
     return active;
 }
 
+// Set snowball active state
 void snowball::SetActive(bool state)
 {
     active = state;
 }
 
+// Return x position
 float snowball::GetX() const
 {
     return x;
 }
 
+// Return y position
 float snowball::GetY() const
 {
     return y;
 }
 
+// Return collision width
 int snowball::GetWidth() const
 {
     return 15;
 }
 
+// Return collision height
 int snowball::GetHeight() const
 {
     return 15;

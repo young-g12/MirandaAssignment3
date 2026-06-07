@@ -1,3 +1,5 @@
+// Gilberto Miranda
+
 #include <iostream>
 #include <ctime>
 #include <cmath>
@@ -14,6 +16,7 @@
 
 using namespace std;
 
+// Check for collision between two objects
 bool CheckCollision(float x1, float y1, int w1, int h1,
     float x2, float y2, int w2, int h2)
 {
@@ -25,8 +28,10 @@ bool CheckCollision(float x1, float y1, int w1, int h1,
 
 int main()
 {
+    // Seed random number generator
     srand(time(NULL));
 
+    // Initialize Allegro
     if (!al_init())
         return -1;
 
@@ -35,18 +40,22 @@ int main()
     al_init_font_addon();
     al_init_ttf_addon();
 
+    // Create display window
     ALLEGRO_DISPLAY* display =
         al_create_display(SCREEN_W, SCREEN_H);
 
     if (!display)
         return -1;
 
+    // Create game timer
     ALLEGRO_TIMER* timer =
         al_create_timer(1.0 / FPS);
 
+    // Create event queue
     ALLEGRO_EVENT_QUEUE* queue =
         al_create_event_queue();
 
+    // Register event sources
     al_register_event_source(
         queue,
         al_get_display_event_source(display));
@@ -59,37 +68,46 @@ int main()
         queue,
         al_get_timer_event_source(timer));
 
+    // Create font
     ALLEGRO_FONT* font =
         al_create_builtin_font();
 
+    // Load background image
     ALLEGRO_BITMAP* background =
         al_load_bitmap("bg2.png");
 
+    // Load iceberg image
     ALLEGRO_BITMAP* iceberg =
         al_load_bitmap("iceberg.png");
 
+    // Check background image
     if (!background)
     {
         cout << "Failed to load background.png\n";
         return -1;
     }
 
+    // Check iceberg image
     if (!iceberg)
     {
         cout << "Failed to load iceberg.png\n";
         return -1;
     }
 
+    // Create cannon object
     penguinFiring cannon;
 
+    // Load cannon image
     if (!cannon.LoadImage("penguinFiring.png"))
     {
         cout << "Failed to load penguinFiring.png\n";
         return -1;
     }
 
+    // Create snowball array
     snowball snowballs[NUM_SNOWBALLS];
 
+    // Load snowball images
     for (int i = 0; i < NUM_SNOWBALLS; i++)
     {
         if (!snowballs[i].LoadImage("snowball.png"))
@@ -99,8 +117,10 @@ int main()
         }
     }
 
+    // Create penguin array
     penguinDropping penguins[NUM_PENGUINS];
 
+    // Load penguin images
     for (int i = 0; i < NUM_PENGUINS; i++)
     {
         if (!penguins[i].LoadImage("penguinDrop.png"))
@@ -113,16 +133,20 @@ int main()
     bool running = true;
     bool redraw = true;
 
+    // Track keyboard input
     bool keys[ALLEGRO_KEY_MAX] = { false };
 
+    // Player score and lives
     int score = 0;
     int lives = MAX_LIVES;
 
+    // Timers for spawning and firing
     int spawnCounter = 0;
     int fireCounter = 0;
 
     al_start_timer(timer);
 
+    // Main game loop
     while (running)
     {
         ALLEGRO_EVENT ev;
@@ -150,6 +174,7 @@ int main()
         {
             if (lives > 0)
             {
+                // Rotate cannon
                 if (keys[ALLEGRO_KEY_LEFT])
                     cannon.RotateLeft();
 
@@ -158,6 +183,7 @@ int main()
 
                 fireCounter++;
 
+                // Fire snowballs
                 if (keys[ALLEGRO_KEY_SPACE] &&
                     fireCounter > 10)
                 {
@@ -178,6 +204,7 @@ int main()
 
                 spawnCounter++;
 
+                // Spawn falling penguins
                 if (spawnCounter > 60)
                 {
                     for (int i = 0; i < NUM_PENGUINS; i++)
@@ -191,12 +218,15 @@ int main()
                     }
                 }
 
+                // Update snowballs
                 for (int i = 0; i < NUM_SNOWBALLS; i++)
                     snowballs[i].Update();
 
+                // Update penguins
                 for (int i = 0; i < NUM_PENGUINS; i++)
                     penguins[i].Update();
 
+                // Check snowball and penguin collisions
                 for (int p = 0; p < NUM_PENGUINS; p++)
                 {
                     if (!penguins[p].IsActive())
@@ -226,6 +256,7 @@ int main()
                     }
                 }
 
+                // Check if penguins reach the iceberg
                 int icebergY = SCREEN_H - 110;
 
                 for (int i = 0; i < NUM_PENGUINS; i++)
@@ -252,6 +283,7 @@ int main()
             al_clear_to_color(
                 al_map_rgb(0, 0, 0));
 
+            // Draw background
             al_draw_scaled_bitmap(
                 background,
                 0,
@@ -264,6 +296,7 @@ int main()
                 SCREEN_H,
                 0);
 
+            // Draw iceberg
             al_draw_scaled_bitmap(
                 iceberg,
                 0,
@@ -276,14 +309,18 @@ int main()
                 110,
                 0);
 
+            // Draw cannon
             cannon.Draw();
 
+            // Draw snowballs
             for (int i = 0; i < NUM_SNOWBALLS; i++)
                 snowballs[i].Draw();
 
+            // Draw penguins
             for (int i = 0; i < NUM_PENGUINS; i++)
                 penguins[i].Draw();
 
+            // Display score
             al_draw_textf(
                 font,
                 al_map_rgb(255, 255, 255),
@@ -293,6 +330,7 @@ int main()
                 "Score: %d",
                 score);
 
+            // Display lives
             al_draw_textf(
                 font,
                 al_map_rgb(255, 255, 255),
@@ -302,6 +340,7 @@ int main()
                 "Lives: %d",
                 lives);
 
+            // Show game over screen
             if (lives <= 0)
             {
                 al_draw_text(
@@ -334,6 +373,7 @@ int main()
         }
     }
 
+    // Free memory
     al_destroy_bitmap(background);
     al_destroy_bitmap(iceberg);
 

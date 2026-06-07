@@ -1,9 +1,12 @@
+// Gilberto Miranda
+
 #include "penguinFiring.h"
 #include "constants.h"
 
 #include <allegro5/allegro_image.h>
 #include <cmath>
 
+// Constructor
 penguinFiring::penguinFiring()
 {
     x = SCREEN_W / 2;
@@ -14,12 +17,14 @@ penguinFiring::penguinFiring()
     image = nullptr;
 }
 
+// Destructor
 penguinFiring::~penguinFiring()
 {
     if (image)
         al_destroy_bitmap(image);
 }
 
+// Load the cannon image
 bool penguinFiring::LoadImage(const char* filename)
 {
     image = al_load_bitmap(filename);
@@ -30,6 +35,7 @@ bool penguinFiring::LoadImage(const char* filename)
     return true;
 }
 
+// Draw the cannon
 void penguinFiring::Draw()
 {
     if (!image)
@@ -48,14 +54,16 @@ void penguinFiring::Draw()
     );
 }
 
+// Rotate cannon left
 void penguinFiring::RotateLeft()
 {
     angle -= 0.03f;
 
     if (angle < -1.047f)
-        angle = -1.047f  ;
+        angle = -1.047f;
 }
 
+// Rotate cannon right
 void penguinFiring::RotateRight()
 {
     angle += 0.03f;
@@ -64,16 +72,19 @@ void penguinFiring::RotateRight()
         angle = 1.047f;
 }
 
+// Return current angle
 float penguinFiring::GetAngle() const
 {
     return angle;
 }
 
+// Return x position
 int penguinFiring::GetX() const
 {
     return x;
 }
 
+// Return y position
 int penguinFiring::GetY() const
 {
     return y;

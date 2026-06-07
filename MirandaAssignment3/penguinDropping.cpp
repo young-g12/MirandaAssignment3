@@ -1,9 +1,12 @@
+// Gilberto Miranda
+
 #include "penguinDropping.h"
 #include "constants.h"
 
 #include <allegro5/allegro_image.h>
 #include <cstdlib>
 
+// Constructor
 penguinDropping::penguinDropping()
 {
     x = 0;
@@ -16,12 +19,14 @@ penguinDropping::penguinDropping()
     image = nullptr;
 }
 
+// Destructor
 penguinDropping::~penguinDropping()
 {
     if (image)
         al_destroy_bitmap(image);
 }
 
+// Load the penguin image
 bool penguinDropping::LoadImage(const char* filename)
 {
     image = al_load_bitmap(filename);
@@ -32,6 +37,7 @@ bool penguinDropping::LoadImage(const char* filename)
     return true;
 }
 
+// Spawn a penguin at a random x position
 void penguinDropping::Spawn()
 {
     x = rand() % (SCREEN_W - 100) + 50;
@@ -42,6 +48,7 @@ void penguinDropping::Spawn()
     active = true;
 }
 
+// Move the penguin downward
 void penguinDropping::Update()
 {
     if (!active)
@@ -49,12 +56,14 @@ void penguinDropping::Update()
 
     y += speed;
 
+    // Remove penguin if it goes off screen
     if (y > SCREEN_H + 50)
     {
         active = false;
     }
 }
 
+// Draw the falling penguin
 void penguinDropping::Draw()
 {
     if (!active || !image)
@@ -73,31 +82,37 @@ void penguinDropping::Draw()
         0);
 }
 
+// Check if penguin is active
 bool penguinDropping::IsActive() const
 {
     return active;
 }
 
+// Set penguin active state
 void penguinDropping::SetActive(bool state)
 {
     active = state;
 }
 
+// Return x position
 float penguinDropping::GetX() const
 {
     return x;
 }
 
+// Return y position
 float penguinDropping::GetY() const
 {
     return y;
 }
 
+// Return collision width
 int penguinDropping::GetWidth() const
 {
     return 50;
 }
 
+// Return collision height
 int penguinDropping::GetHeight() const
 {
     return 50;
