@@ -226,18 +226,14 @@ int main()
                     }
                 }
 
-                int icebergY =
-                    SCREEN_H -
-                    al_get_bitmap_height(iceberg);
+                int icebergY = SCREEN_H - 110;
 
                 for (int i = 0; i < NUM_PENGUINS; i++)
                 {
                     if (!penguins[i].IsActive())
                         continue;
 
-                    if (penguins[i].GetY() +
-                        penguins[i].GetHeight()
-                        >= icebergY)
+                    if (penguins[i].GetY() >= SCREEN_H - 120)
                     {
                         penguins[i].SetActive(false);
                         lives--;
@@ -274,10 +270,10 @@ int main()
                 0,
                 al_get_bitmap_width(iceberg),
                 al_get_bitmap_height(iceberg),
-                SCREEN_W / 2 - 125,
-                SCREEN_H - 80,
-                250,
-                80,
+                SCREEN_W / 2 - 175,
+                SCREEN_H - 110,
+                350,
+                110,
                 0);
 
             cannon.Draw();

@@ -7,7 +7,7 @@
 penguinFiring::penguinFiring()
 {
     x = SCREEN_W / 2;
-    y = SCREEN_H - 90;
+    y = SCREEN_H - 75;
 
     angle = 0.0f;
 
@@ -41,8 +41,8 @@ void penguinFiring::Draw()
         al_get_bitmap_height(image) / 2.0,
         x,
         y,
-        0.3,
-        0.3,
+        0.025,
+        0.025,
         angle,
         0
     );
@@ -53,7 +53,7 @@ void penguinFiring::RotateLeft()
     angle -= 0.03f;
 
     if (angle < -1.047f)
-        angle = -1.047f;
+        angle = -1.047f  ;
 }
 
 void penguinFiring::RotateRight()

@@ -101,16 +101,10 @@ float snowball::GetY() const
 
 int snowball::GetWidth() const
 {
-    if (!image)
-        return 0;
-
-    return al_get_bitmap_width(image);
+    return 15;
 }
 
 int snowball::GetHeight() const
 {
-    if (!image)
-        return 0;
-
-    return al_get_bitmap_height(image);
+    return 15;
 }
