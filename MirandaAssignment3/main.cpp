@@ -63,7 +63,7 @@ int main()
         al_create_builtin_font();
 
     ALLEGRO_BITMAP* background =
-        al_load_bitmap("1c0ebb1c92c589ebbab9dc586c3122c9.png");
+        al_load_bitmap("bg2.png");
 
     ALLEGRO_BITMAP* iceberg =
         al_load_bitmap("iceberg.png");
@@ -256,17 +256,28 @@ int main()
             al_clear_to_color(
                 al_map_rgb(0, 0, 0));
 
-            al_draw_bitmap(
+            al_draw_scaled_bitmap(
                 background,
                 0,
                 0,
+                al_get_bitmap_width(background),
+                al_get_bitmap_height(background),
+                0,
+                0,
+                SCREEN_W,
+                SCREEN_H,
                 0);
 
-            al_draw_bitmap(
+            al_draw_scaled_bitmap(
                 iceberg,
                 0,
-                SCREEN_H -
+                0,
+                al_get_bitmap_width(iceberg),
                 al_get_bitmap_height(iceberg),
+                SCREEN_W / 2 - 125,
+                SCREEN_H - 80,
+                250,
+                80,
                 0);
 
             cannon.Draw();

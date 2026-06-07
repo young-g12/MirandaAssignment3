@@ -7,7 +7,7 @@
 penguinFiring::penguinFiring()
 {
     x = SCREEN_W / 2;
-    y = SCREEN_H - 120;
+    y = SCREEN_H - 90;
 
     angle = 0.0f;
 
@@ -35,15 +35,14 @@ void penguinFiring::Draw()
     if (!image)
         return;
 
-    float cx = al_get_bitmap_width(image) / 2.0f;
-    float cy = al_get_bitmap_height(image) / 2.0f;
-
-    al_draw_rotated_bitmap(
+    al_draw_scaled_rotated_bitmap(
         image,
-        cx,
-        cy,
+        al_get_bitmap_width(image) / 2.0,
+        al_get_bitmap_height(image) / 2.0,
         x,
         y,
+        0.3,
+        0.3,
         angle,
         0
     );

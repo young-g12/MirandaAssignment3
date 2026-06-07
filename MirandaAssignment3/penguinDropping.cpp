@@ -60,7 +60,17 @@ void penguinDropping::Draw()
     if (!active || !image)
         return;
 
-    al_draw_bitmap(image, x, y, 0);
+    al_draw_scaled_bitmap(
+        image,
+        0,
+        0,
+        al_get_bitmap_width(image),
+        al_get_bitmap_height(image),
+        x,
+        y,
+        60,
+        60,
+        0);
 }
 
 bool penguinDropping::IsActive() const
@@ -85,16 +95,10 @@ float penguinDropping::GetY() const
 
 int penguinDropping::GetWidth() const
 {
-    if (!image)
-        return 0;
-
-    return al_get_bitmap_width(image);
+    return 50;
 }
 
 int penguinDropping::GetHeight() const
 {
-    if (!image)
-        return 0;
-
-    return al_get_bitmap_height(image);
+    return 50;
 }
